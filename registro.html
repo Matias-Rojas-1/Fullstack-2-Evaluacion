@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Registro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="estilo.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <script>
+      function procesar() {
+        console.log("-- funcion procesar --");
+        limpiar_errores();
+
+        const formulario = document.getElementById("form_registro");
+        const datos_formulario = new FormData(formulario);
+
+        var nombre = datos_formulario.get("campo_nombre");
+        var contra = datos_formulario.get("campo_contra");
+        var contra_conf = datos_formulario.get("campo_contra_conf");
+        var mail = datos_formulario.get("campo_mail");
+        var telefono = datos_formulario.get("campo_telefono");
+
+        // Validar Nombre
+        if (validar_nombre(nombre)) {
+          marcar_campoNombre("mensaje_nombre", true);
+        } else {
+          marcar_campoNombre("mensaje_nombre", false);
+        }
+
+        // Validar Contraseña
+        if (validar_pass(contra)) {
+          marcar_campoCon("mensaje_contra", true);
+        } else {
+          marcar_campoCon("mensaje_contra", false);
+        }
+        // Validar Confirmación de Contraseña
+        if (validar_confirmacion(contra, contra_conf)) {
+          marcar_campoConf("mensaje_contra_conf", true);
+        } else {
+          marcar_campoConf("mensaje_contra_conf", false);
+        }
+
+        // Validar Mail
+        if (validar_mail(mail)) {
+          marcar_campoMail("mensaje_mail", true);
+        } else {
+          marcar_campoMail("mensaje_mail", false);
+        }
+
+        // Validar Teléfono
+        if (validar_telefono(telefono)) {
+          marcar_campoTelefono("mensaje_telefono", true);
+        } else {
+          marcar_campoTelefono("mensaje_telefono", false);
+        }
+      }
+
+      function validar_nombre(nombre) {
+        if (!nombre) return false;
+
+        nombre = nombre.trim();
+        return nombre.length >= 3 && isNaN(nombre);
+      }
+
+      function validar_pass(contra) {
+        if (!contra || contra.length < 4) {
+          return false;
+        }
+        return true;
+      }
+      function validar_confirmacion(contra, contra_conf) {
+        if (!contra_conf) {
+          return false;
+        }
+        return contra === contra_conf;
+      }
+
+      function validar_mail(mail) {
+        const formmato_mail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return formmato_mail.test(mail);
+      }
+
+      function validar_telefono(telefono) {
+        const formato_telefono = /^[+]?[0-9]{8,12}$/;
+        return formato_telefono
+          ? formato_telefono.test(telefono.trim())
+          : false;
+      }
+
+      function marcar_campoNombre(id_span, es_valido) {
+        let caja = document.getElementById(id_span);
+        if (es_valido) {
+          caja.innerHTML = "(Validado)";
+          caja.className = "mensaje_estado texto-valido";
+        } else {
+          caja.innerHTML = "Su nombre debe contener al menos 3 caracteres";
+          caja.className = "mensaje_estado texto-invalido";
+        }
+      }
+      function marcar_campoCon(id_span, es_valido) {
+        let caja = document.getElementById(id_span);
+        if (es_valido) {
+          caja.innerHTML = "(Validado)";
+          caja.className = "mensaje_estado texto-valido";
+        } else {
+          caja.innerHTML = "La contraseña debe tener al menos 4 caracteres";
+          caja.className = "mensaje_estado texto-invalido";
+        }
+      }
+      function marcar_campoConf(id_span, es_valido) {
+        let caja = document.getElementById(id_span);
+        if (es_valido) {
+          caja.innerHTML = "(Validado)";
+          caja.className = "mensaje_estado texto-valido";
+        } else {
+          caja.innerHTML = "Las contraseñas deben coincidir";
+          caja.className = "mensaje_estado texto-invalido";
+        }
+      }
+      function marcar_campoMail(id_span, es_valido) {
+        let caja = document.getElementById(id_span);
+        if (es_valido) {
+          caja.innerHTML = "(Validado)";
+          caja.className = "mensaje_estado texto-valido";
+        } else {
+          caja.innerHTML = "Ingrese un correo válido EJ: coso@gmail.com";
+          caja.className = "mensaje_estado texto-invalido";
+        }
+      }
+
+      function marcar_campoTelefono(id_span, es_valido) {
+        let caja = document.getElementById(id_span);
+        if (es_valido) {
+          caja.innerHTML = "(Validado)";
+          caja.className = "mensaje_estado texto-valido";
+        } else {
+          caja.innerHTML =
+            "Su teléfono no cumple con el formato EJ: +569XXXXXXXX";
+          caja.className = "mensaje_estado texto-invalido";
+        }
+      }
+
+      function limpiar_errores() {
+        console.log("-- funcion limpiar errores --");
+        const lista_errores = document.getElementsByClassName("mensaje_estado");
+        for (const elemento of lista_errores) {
+          elemento.innerHTML = "";
+          elemento.className = "mensaje_estado";
+        }
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- BARRA DE NAVEGACION -->
+    <nav
+      class="navbar navbar-expand-lg navbar-becs sticky-top"
+      data-bs-theme="dark"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="./index.html">
+          <img src="./img/logo.jpeg" alt="Logo" width="70" height="70"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ms-auto">
+            <a class="nav-link active" aria-current="page" href="./index.html"
+              >🏠 Inicio</a
+            >
+            <a class="nav-link" href="./productos.html">🛍️ Productos</a>
+            <a class="nav-link" href="./registro.html">👤 Registro</a>
+            <a class="nav-link" href="https://maps.app.goo.gl/oVSXJAqgXjCdLjFg6"
+              >📍 Ubicación</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container my-5">
+      <div id="contenedor_formulario">
+        <form id="form_registro">
+          <fieldset class="p-4 border">
+            <legend class="text-center mb-4">Regístrate</legend>
+
+            <div class="mb-3 campo-row">
+              <input
+                type="text"
+                name="campo_nombre"
+                id="campo_nombre"
+                class="form-control"
+                placeholder="Nombre"
+              />
+              <span class="mensaje_estado" id="mensaje_nombre"></span>
+            </div>
+
+            <div class="mb-3 campo-row">
+              <input
+                type="password"
+                name="campo_contra"
+                id="campo_contra"
+                class="form-control"
+                placeholder="Contraseña"
+              />
+              <span class="mensaje_estado" id="mensaje_contra"></span>
+            </div>
+
+            <div class="mb-3 campo-row">
+              <input
+                type="password"
+                name="campo_contra_conf"
+                id="campo_contra_conf"
+                class="form-control"
+                placeholder="Confirmar contraseña"
+              />
+              <span class="mensaje_estado" id="mensaje_contra_conf"></span>
+            </div>
+
+            <div class="mb-3 campo-row">
+              <input
+                type="email"
+                name="campo_mail"
+                id="campo_mail"
+                class="form-control"
+                placeholder="Mail"
+              />
+              <span class="mensaje_estado" id="mensaje_mail"></span>
+            </div>
+
+            <div class="mb-3 campo-row">
+              <input
+                type="text"
+                name="campo_telefono"
+                id="campo_telefono"
+                class="form-control"
+                placeholder="Télefono"
+              />
+              <span class="mensaje_estado" id="mensaje_telefono"></span>
+            </div>
+
+            <div class="mb-3 campo-row">
+              <input
+                type="text"
+                name="campo_direccion"
+                id="campo_direccion"
+                class="form-control"
+                placeholder="Dirección (Opcional)"
+              />
+              <span class="mensaje_estado"></span>
+            </div>
+
+            <div class="d-flex justify-content-center gap-3 mt-4">
+              <button type="button" class="btn btn-becs" onclick="procesar()">
+                Ingresar
+              </button>
+              <button
+                type="reset"
+                class="btn btn-becs"
+                onclick="limpiar_errores()"
+              >
+                Limpiar
+              </button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </main>
+
+    <!--PIE DE PAGINA-->
+    <footer>
+      <div id="barra_footer">
+        <!--WhatsApp-->
+        <a href="https://wa.me/56944542829" target="_blank" id="item_footer1">
+          <i class="fa-brands fa-whatsapp" id="logo_whatsapp"></i>
+          <span class="textoFooter">+56944542829</span>
+        </a>
+        <div id="separador_footer1"></div>
+        <!--Instagram-->
+        <a
+          href="https://www.instagram.com/becs.frutossecos/"
+          target="_blank"
+          id="item_footer2"
+        >
+          <i class="fa-brands fa-instagram" id="logo_instagram"></i>
+          <span class="textoFooter">BECS Frutos Secos</span>
+        </a>
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "productos": [
+    { "id": 1, "titulo": "MANI JAPONES MERKEN", "precio": 850, "unidad": "100GR", "imagen": "/img/japones.jpeg" },
+    { "id": 2, "titulo": "CASTAÑAS DE CAJU", "precio": 2000, "unidad": "100GR", "imagen": "/img/caju.jpeg" },
+    { "id": 3, "titulo": "MANI SIN SAL", "precio": 750, "unidad": "100GR", "imagen": "/img/mani.jpeg" },
+    { "id": 4, "titulo": "MAIZ CURAGUA", "precio": 1250, "unidad": "1/2 Kilo", "imagen": "/img/maizcur.jpeg" },
+    { "id": 5, "titulo": "MANI CONFITADO MORA CREMA", "precio": 600, "unidad": "100GR", "imagen": "/img/maniconfitadomora.jpeg" },
+    { "id": 6, "titulo": "MIELES VARIEDAD", "precio": 6500, "unidad": "Unidad", "imagen": "/img/mieles.jpeg" },
+    { "id": 7, "titulo": "MOTE CON HUESILLO", "precio": 2000, "unidad": "Vaso 500ml", "imagen": "/img/moteconhuesillo.jpeg" },
+    { "id": 8, "titulo": "NUECES", "precio": 1400, "unidad": "100GR", "imagen": "/img/nueces.jpeg" },
+    { "id": 9, "titulo": "PISTACHOS", "precio": 2100, "unidad": "100GR", "imagen": "/img/pistachos.jpeg" },
+    { "id": 10, "titulo": "FLOR DE JAMAICA", "precio": 2000, "unidad": "100GR", "imagen": "/img/flor.jpeg" },
+    { "id": 11, "titulo": "COCO CHIPS", "precio": 900, "unidad": "100GR", "imagen": "/img/coco.jpeg" },
+    { "id": 12, "titulo": "ALIÑO COMPLETO", "precio": 700, "unidad": "100GR", "imagen": "/img/alinocompleto.jpeg" }
+  ]
+}

@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>BECS</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="estilo.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- BARRA DE NAVEGACION -->
+    <nav
+      class="navbar navbar-expand-lg navbar-becs sticky-top"
+      data-bs-theme="dark"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="./index.html">
+          <img src="./img/logo.jpeg" alt="Logo" width="70" height="70"
+        /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav ms-auto">
+            <a class="nav-link active" aria-current="page" href="./index.html"
+              >🏠 Inicio</a
+            >
+            <a class="nav-link" href="./productos.html">🛍️ Productos</a>
+            <a class="nav-link" href="./registro.html">👤 Registro</a>
+            <a class="nav-link" href="https://maps.app.goo.gl/oVSXJAqgXjCdLjFg6"
+              >📍 Ubicación</a
+            >
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- INICIO DEL CARRUSEL DE FOTOS -->
+    <section class="inicio-carrusel">
+      <div id="carruselInicio" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <!-- 1RA IMG -->
+          <div class="carousel-item active">
+            <img
+              src="./img/japones.jpeg"
+              class="d-block w-100"
+              alt="Maní japonés merkén"
+            />
+          </div>
+          <!-- 2DA IMG -->
+          <div class="carousel-item">
+            <img
+              src="./img/pistachos.jpeg"
+              class="d-block w-100"
+              alt="Pistachos"
+            />
+          </div>
+          <!-- 3RA IMG -->
+          <div class="carousel-item">
+            <img
+              src="./img/mani.jpeg"
+              class="d-block w-100"
+              alt="Maní sin sal"
+            />
+          </div>
+          <!-- 4TA IMG -->
+          <div class="carousel-item">
+            <img
+              src="./img/maizcur.jpeg"
+              class="d-block w-100"
+              alt="Maíz curagua"
+            />
+          </div>
+          <!-- 5TA IMG -->
+          <div class="carousel-item">
+            <img
+              src="./img/maniconfitadomora.jpeg"
+              class="d-block w-100"
+              alt="Maní confitado mora crema"
+            />
+          </div>
+          <!-- 6TA IMG -->
+          <div class="carousel-item">
+            <img
+              src="./img/mieles.jpeg"
+              class="d-block w-100"
+              alt="Variedad de mieles"
+            />
+          </div>
+          <!-- 7MA IMG -->
+          <div class="carousel-item">
+            <img
+              src="./img/moteconhuesillo.jpeg"
+              class="d-block w-100"
+              alt="Mote con huesillo"
+            />
+          </div>
+          <!-- 8VA IMG -->
+          <div class="carousel-item">
+            <img src="./img/coco.jpeg" class="d-block w-100" alt="Coco chips" />
+          </div>
+          <!-- 9NA IMG -->
+          <div class="carousel-item">
+            <img
+              src="./img/alinocompleto.jpeg"
+              class="d-block w-100"
+              alt="Aliño completo"
+            />
+          </div>
+
+          <!-- FLECHA IZQUIERDA -->
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#carruselInicio"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">Anterior</span>
+          </button>
+
+          <!-- FLECHA DERECHA -->
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#carruselInicio"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">Siguiente</span>
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- FIN DEL CARRUSEL -->
+
+    <!-- INFO LOCAL -->
+    <section class="inicio-informacion">
+      <h2 id="infoLocal">INFORMACIÓN DEL LOCAL</h2>
+      <p id="resumenTienda">
+        BECS es una tienda familiar ubicada en Maipú, dedicada a la venta de
+        frutos secos, productos a granel, deshidratados, harinas, aliños, mieles
+        y otras variedades pensadas para el consumo diario. Nuestro objetivo es
+        ofrecer productos ricos, frescos y de buena calidad, manteniendo siempre
+        una atención cercana y personalizada. Nos gusta ser parte del barrio y
+        atender a nuestros vecinos de forma simple y acogedora, ofreciendo
+        distintas alternativas para cada necesidad, incluyendo opciones
+        vegetarianas, veganas, sin gluten y sin azúcar. Además, durante fechas
+        especiales preparamos productos tradicionales como nuestro mote con
+        huesillo, buscando mantener ese espíritu casero y familiar que
+        representa a BECS. Más que una tienda, queremos ser un espacio cercano
+        donde puedas encontrar productos de confianza, atención amable y
+        opciones para compartir en familia.
+      </p>
+    </section>
+    <!-- FIN INFO LOCAL -->
+    
+    <!-- INICIO PRODUCTOS TOP -->
+    <section class="inicio-productos">
+      <h2>PRODUCTOS DESTACADOS</h2>
+      <!-- CONTENEDOR DE LOS 4 PRODUCTOS -->
+      <div class="container">
+        <div class="row g-4">
+          <!-- PRODUCTO TOP 1 -->
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="producto-destacado">
+              <img src="./img/japones.jpeg" alt="Producto destacado 1" />
+              <h3>MANÍ JAPONÉS MERKÉN</h3>
+              <p>$850 x 100GR</p>
+            </div>
+          </div>
+
+          <!-- PRODUCTO TOP 2 -->
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="producto-destacado">
+              <img src="./img/caju.jpeg" alt="Producto destacado 2" />
+              <h3>CASTAÑAS DE CAJÚ</h3>
+              <p>$2.000 x 100GR</p>
+            </div>
+          </div>
+
+          <!-- PRODUCTO TOP 3 -->
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="producto-destacado">
+              <img src="./img/nueces.jpeg" alt="Producto destacado 3" />
+              <h3>NUECES</h3>
+              <p>$1.400 x 100GR</p>
+            </div>
+          </div>
+
+          <!-- PRODUCTO TOP 4 -->
+          <div class="col-12 col-sm-6 col-lg-3">
+            <div class="producto-destacado">
+              <img src="./img/pistachos.jpeg" alt="Producto destacado 4" />
+              <h3>PISTACHOS</h3>
+              <p>$2.100 x 100GR</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- FIN PRODUCTOS TOP -->
+
+    <!-- VIDEO -->
+    <section class="inicio-videos">
+      <h2>CONOCE BECS</h2>
+      <p class="video-descripcion">
+        Conoce algunos de nuestros productos y parte de lo que puedes encontrar
+        en BECS
+      </p>
+      <div class="video-tarjeta">
+        <div class="ratio ratio-16x9">
+          <iframe
+            src="https://www.youtube.com/embed/MkJWXel3bzo"
+            title="Video de productos BECS"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="
+              accelerometer;
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              gyroscope;
+              picture-in-picture;
+              web-share;
+            "
+            allowfullscreen
+          >
+          </iframe>
+        </div>
+      </div>
+    </section>
+    <!-- FIN SECCION DE VIDEO -->
+    <!-- FIN VIDEO -->
+    <!--INICIO UBICACION-->
+    
+    <h1 id="tituloUbicacion">UBICACIÓN</h1>
+    <section class="ubicacion">
+      <div id="mapaBECS">
+        <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3328.0714809783494!2d-70.7484559!3d-33.4734897!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c311c135ca27%3A0x16e72997ca0d7ac3!2sBandurria%20Azul%20585%2C%209250000%20Maip%C3%BA%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1788999679895!5m2!1ses!2scl"
+        width="600"
+        height="450"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+      </div>
+    </section>
+    <!--FIN UBICACION-->
+    <!--PIE DE PAGINA-->
+    <footer>
+      <div id="barra_footer">
+        <!--WhatsApp-->
+        <a href="https://wa.me/56944542829" target="_blank" id="item_footer1">
+          <i class="fa-brands fa-whatsapp" id="logo_whatsapp"></i>
+          <span class="textoFooter">+56944542829</span>
+        </a>
+        <div id="separador_footer1"></div>
+        <!--Instagram-->
+        <a
+          href="https://www.instagram.com/becs.frutossecos/"
+          target="_blank"
+          id="item_footer2"
+        >
+          <i class="fa-brands fa-instagram" id="logo_instagram"></i>
+          <span class="textoFooter">BECS Frutos Secos</span>
+        </a>
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
