@@ -292,9 +292,20 @@ legend {
   font-weight: 600;
 }
 
-/* =========================================
-   CARDS DE PRODUCTOS
-   ========================================= */
+/* BARRA DE BÚSQUEDA */
+
+.buscador-productos {
+  flex: 1; /* permite aprovechar el espacio disponible */
+  max-width: 400px;
+}
+
+.buscador-productos .form-control {
+  width: 100%; /*hace que input ocupe todo el espacio de el contenedor*/
+  border: 1px solid #dfd1c0;
+  border-radius: 8px;
+}
+
+/* CARDS DE PRODUCTOS*/
 
 .producto-card {
   border: 1px solid #dfd1c0;
@@ -867,6 +878,23 @@ footer {
 
   .filtro-productos > div {
     width: 100%;
+  }
+
+  /* Productos RESPONSIVE */
+
+  @media (max-width: 768px) { /*eso le hace aplicar los estlos cuando la pantalla sea tablet, celular o mas pequeña*/
+    .filtro-productos {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 15px;
+    }
+    .buscador-productos {
+      width: 100%;
+      max-width: none;
+    }
+    .contador-productos {
+      align-self: flex-start;
+    }
   }
 
 }

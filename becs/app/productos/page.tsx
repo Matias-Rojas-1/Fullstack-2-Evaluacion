@@ -29,10 +29,13 @@ export default function ProductosPage() {
   const [productos, setProductos] = useState<Producto[]>([]);
 
   // Categoría seleccionada
-  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos");
+const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos");
 
-  // Indica si los productos todavía se están cargando
-  const [cargando, setCargando] = useState(true);
+// Guarda lo que el usuario escriba
+const [busqueda, setBusqueda] = useState("");
+
+// Indica si los productos todavía se están cargando
+const [cargando, setCargando] = useState(true);
 
   // =========================================
   // CARGAR PRODUCTOS
@@ -118,14 +121,17 @@ export default function ProductosPage() {
   // FILTRAR PRODUCTOS
   // =========================================
 
+  // Filtra por categoría y por nombre
   const productosFiltrados = productos.filter((producto) => {
-    // Todos muestra el catálogo completo
-    if (categoriaSeleccionada === "Todos") {
-      return true;
-    }
-
-    // Para el resto comparamos categorías
-    return producto.categoria === categoriaSeleccionada;
+    const coincideCategoria =
+      categoriaSeleccionada === "Todos" ||
+      producto.categoria === categoriaSeleccionada;
+    // compara el nombre escrito del producto
+    const coincideBusqueda = producto.titulo
+      .toLowerCase()
+      .includes(busqueda.toLowerCase());
+    // debe cumplir la categoria y la busqueda
+    return coincideCategoria && coincideBusqueda;
   });
 
   // =========================================
@@ -175,6 +181,22 @@ export default function ProductosPage() {
             </select>
           </div>
 
+           {/* BÚSQUEDA POR NOMBRE */}
+          <div className="buscador-productos">
+            <label htmlFor="busqueda" className="form-label">
+              Buscar producto
+            </label>
+
+            <input
+              id="busqueda"
+              type="text"
+              className="form-control"
+              placeholder="Ej: Maní, pistachos..."
+              value={busqueda} // conecta input con la variable creada
+              onChange={(evento) => setBusqueda(evento.target.value)} // cada vez que se escribe, React guarda ese texto en busqueda
+            />
+          </div>
+
           {!cargando && (
             <span className="contador-productos">
               {productosFiltrados.length} producto
@@ -192,14 +214,16 @@ export default function ProductosPage() {
             <p className="mb-0">Cargando productos...</p>
           </div>
         ) : productosFiltrados.length === 0 ? (
-          <div className="mensaje-productos">
-            <h5>No encontramos productos</h5>
+        <div className="mensaje-productos">
+          <h5>No encontramos productos</h5>
 
-            <p className="text-muted mb-0">
-              No hay productos disponibles en esta categoría.
-            </p>
-          </div>
-        ) : (
+          <p className="text-muted mb-0">
+            {busqueda.trim()
+              ? `No hay resultados para "${busqueda}". Prueba con otro nombre.`
+              : "No hay productos disponibles en esta categoría."}
+          </p>
+        </div>
+      ) : (
           <div className="row g-4">
             {productosFiltrados.map((producto) => (
               <div
