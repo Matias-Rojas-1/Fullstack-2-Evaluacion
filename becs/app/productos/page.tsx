@@ -2,35 +2,66 @@
 
 import { useEffect, useState } from "react";
 
-// Estructura de los productos de db.json
+// Estructura de cada producto
 interface Producto {
   id: number | string;
+
   titulo: string;
+
   precio: number;
+
   unidad: string;
+
   imagen: string;
+
+  categoria: string;
 }
 
-// Estructura de cada elemento guardado en el carrito
+// Estructura de los productos guardados en el carrito
 interface ItemCarrito {
   producto: Producto;
+
   cantidad: number;
 }
 
 export default function ProductosPage() {
+  // Productos recibidos desde json-server
   const [productos, setProductos] = useState<Producto[]>([]);
+
+  // Categoría seleccionada
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos");
+
+  // Indica si los productos todavía se están cargando
   const [cargando, setCargando] = useState(true);
 
-  // Cargar productos desde json-server
+  // =========================================
+  // CARGAR PRODUCTOS
+  // =========================================
+
   useEffect(() => {
+    // Primero revisamos si la URL contiene una categoría
+    const parametros = new URLSearchParams(window.location.search);
+
+    const categoriaUrl = parametros.get("categoria");
+
+    if (categoriaUrl) {
+      // ESLint puede advertir por cambiar estado en useEffect.
+      // En este caso lo usamos para cargar el filtro de la URL.
+
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setCategoriaSeleccionada(categoriaUrl);
+    }
+
+    // Obtener productos desde json-server
     fetch("http://localhost:4000/productos")
       .then((respuesta) => respuesta.json())
+
       .then((datos) => {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setProductos(datos);
 
         setCargando(false);
       })
+
       .catch((error) => {
         console.log("Error al cargar productos:", error);
 
@@ -38,9 +69,12 @@ export default function ProductosPage() {
       });
   }, []);
 
-  // Agregar un producto al carrito
+  // =========================================
+  // AGREGAR AL CARRITO
+  // =========================================
+
   const agregarAlCarrito = (producto: Producto) => {
-    // Obtener carrito guardado anteriormente
+    // Recuperar carrito anterior
     const carritoGuardado = localStorage.getItem("carrito");
 
     let carrito: ItemCarrito[] = [];
@@ -49,17 +83,18 @@ export default function ProductosPage() {
       carrito = JSON.parse(carritoGuardado);
     }
 
-    // Revisar si el producto ya existe
+    // Buscar si el producto ya está agregado
     const productoExistente = carrito.find(
       (item) => item.producto.id === producto.id,
     );
 
     if (productoExistente) {
-      // Si ya estaba en el carrito aumentamos la cantidad
+      // Si ya existe aumentamos su cantidad
       carrito = carrito.map((item) => {
         if (item.producto.id === producto.id) {
           return {
             ...item,
+
             cantidad: item.cantidad + 1,
           };
         }
@@ -67,23 +102,42 @@ export default function ProductosPage() {
         return item;
       });
     } else {
-      // Si no existía lo agregamos con cantidad 1
+      // Si no existe lo agregamos por primera vez
       carrito.push({
         producto: producto,
+
         cantidad: 1,
       });
     }
 
-    // Guardar nuevamente en localStorage
+    // Guardamos carrito actualizado
     localStorage.setItem("carrito", JSON.stringify(carrito));
 
     alert(`${producto.titulo} fue agregado al carrito`);
   };
 
+  // =========================================
+  // FILTRAR PRODUCTOS
+  // =========================================
+
+  const productosFiltrados = productos.filter((producto) => {
+    // Todos muestra el catálogo completo
+    if (categoriaSeleccionada === "Todos") {
+      return true;
+    }
+
+    // Para el resto comparamos categorías
+    return producto.categoria === categoriaSeleccionada;
+  });
+
+  // =========================================
+  // INTERFAZ
+  // =========================================
+
   return (
     <main className="productos-page">
       <div className="container py-5">
-        {/* ENCABEZADO */}
+        {/* CABECERA */}
 
         <div className="cabecera-productos">
           <h1 className="titulo-productos">Productos BECS</h1>
@@ -93,43 +147,63 @@ export default function ProductosPage() {
           </p>
         </div>
 
-        {/* TÍTULO DE SECCIÓN */}
+        {/* ================================= */}
+        {/* FILTRO */}
+        {/* ================================= */}
 
-        <div className="encabezado-seccion">
+        <div className="filtro-productos">
           <div>
-            <h2 className="seccion-titulo">Nuestros productos</h2>
+            <label htmlFor="categoria" className="form-label">
+              Filtrar por categoría
+            </label>
 
-            <p className="seccion-descripcion">
-              Productos disponibles en nuestra tienda
-            </p>
+            <select
+              id="categoria"
+              className="form-select"
+              value={categoriaSeleccionada}
+              onChange={(evento) =>
+                setCategoriaSeleccionada(evento.target.value)
+              }
+            >
+              <option value="Todos">Todos</option>
+
+              <option value="Frutos secos">Frutos secos</option>
+
+              <option value="Deshidratados">Deshidratados</option>
+
+              <option value="Condimentos">Condimentos</option>
+
+              <option value="Mieles">Mieles</option>
+            </select>
           </div>
 
           {!cargando && (
             <span className="contador-productos">
-              {productos.length} productos
+              {productosFiltrados.length} producto
+              {productosFiltrados.length !== 1 ? "s" : ""}
             </span>
           )}
         </div>
 
+        {/* ================================= */}
         {/* PRODUCTOS */}
+        {/* ================================= */}
 
         {cargando ? (
           <div className="mensaje-productos">
             <p className="mb-0">Cargando productos...</p>
           </div>
-        ) : productos.length === 0 ? (
+        ) : productosFiltrados.length === 0 ? (
           <div className="mensaje-productos">
-            <p className="text-danger mb-1">
-              No se pudieron cargar los productos.
-            </p>
+            <h5>No encontramos productos</h5>
 
-            <small className="text-muted">
-              Revisa que json-server esté funcionando en el puerto 4000.
-            </small>
+            <p className="text-muted mb-0">
+              No hay productos disponibles en esta categoría.
+            </p>
           </div>
         ) : (
           <div className="row g-4">
-            {productos.map((producto) => (
+            {productosFiltrados.map((producto) => (
               <div
                 className="col-12 col-sm-6 col-md-4 col-lg-3"
                 key={producto.id}
@@ -146,7 +220,17 @@ export default function ProductosPage() {
                   {/* INFORMACIÓN */}
 
                   <div className="card-body d-flex flex-column">
+                    {/* CATEGORÍA */}
+
+                    <small className="producto-categoria">
+                      {producto.categoria}
+                    </small>
+
+                    {/* NOMBRE */}
+
                     <h5 className="producto-nombre">{producto.titulo}</h5>
+
+                    {/* PRECIO */}
 
                     <p className="producto-precio">
                       ${producto.precio.toLocaleString("es-CL")}
@@ -155,6 +239,8 @@ export default function ProductosPage() {
                         x {producto.unidad}
                       </span>
                     </p>
+
+                    {/* BOTÓN */}
 
                     <button
                       className="btn btn-becs mt-auto w-100"

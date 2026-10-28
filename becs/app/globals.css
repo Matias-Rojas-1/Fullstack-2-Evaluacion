@@ -728,3 +728,145 @@ footer {
     height: 220px;
   }
 }
+
+/* =========================================
+   CATEGORÍAS EN PÁGINA DE INICIO
+   ========================================= */
+
+.categorias-inicio {
+  background-color: var(--becs-crema-claro);
+  padding: 50px 0;
+}
+
+.titulo-categorias {
+  color: var(--becs-cafe-oscuro);
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.subtitulo-categorias {
+  color: #746355;
+}
+
+.categoria-card {
+  min-height: 150px;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+
+  border: 1px solid #dfd1c0;
+  border-radius: 12px;
+
+  padding: 20px;
+
+  text-align: center;
+  text-decoration: none;
+
+  color: var(--becs-cafe-oscuro);
+
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.categoria-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+
+  color: var(--becs-cafe-medio);
+}
+
+.categoria-icono {
+  font-size: 2.7rem;
+  margin-bottom: 12px;
+}
+
+.categoria-card h5 {
+  font-weight: bold;
+  margin: 0;
+}
+
+
+/* =========================================
+   FILTRO DE PRODUCTOS
+   ========================================= */
+
+.filtro-productos {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: end;
+
+  background-color: white;
+
+  border: 1px solid #dfd1c0;
+  border-radius: 10px;
+
+  padding: 15px 20px;
+
+  margin-bottom: 25px;
+}
+
+.filtro-productos > div {
+  width: 280px;
+}
+
+.filtro-productos .form-label {
+  color: var(--becs-cafe-oscuro);
+
+  font-weight: bold;
+
+  margin-bottom: 5px;
+}
+
+.filtro-productos .form-select:focus {
+  border-color: var(--becs-beige);
+
+  box-shadow:
+    0 0 0 0.2rem rgba(212, 163, 115, 0.25);
+}
+
+
+/* CATEGORÍA PEQUEÑA DE LA CARD */
+
+.producto-categoria {
+  color: #8a7869;
+
+  margin-bottom: 5px;
+
+  font-size: 0.78rem;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 576px) {
+
+  .categoria-card {
+    min-height: 130px;
+  }
+
+  .categoria-icono {
+    font-size: 2.2rem;
+  }
+
+  .filtro-productos {
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 12px;
+  }
+
+  .filtro-productos > div {
+    width: 100%;
+  }
+
+}

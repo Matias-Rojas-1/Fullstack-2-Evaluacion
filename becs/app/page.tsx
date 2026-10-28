@@ -1,44 +1,189 @@
+import Link from "next/link";
+
 export default function InicioPage() {
   return (
     <>
+      {/* ===================================== */}
       {/* CARRUSEL */}
+      {/* ===================================== */}
+
       <section className="inicio-carrusel">
-        <div id="carruselInicio" className="carousel slide" data-bs-ride="carousel">
+        <div
+          id="carruselInicio"
+          className="carousel slide"
+          data-bs-ride="carousel"
+          data-bs-interval="3500"
+        >
           <div className="carousel-inner">
             <div className="carousel-item active">
-              <img src="/img/japones.jpeg" className="d-block w-100" alt="Maní japonés merkén" />
+              <img
+                src="/img/japones.jpeg"
+                className="d-block w-100"
+                alt="Maní japonés merkén"
+              />
             </div>
+
             <div className="carousel-item">
-              <img src="/img/pistachos.jpeg" className="d-block w-100" alt="Pistachos" />
+              <img
+                src="/img/pistachos.jpeg"
+                className="d-block w-100"
+                alt="Pistachos"
+              />
             </div>
+
             <div className="carousel-item">
-              <img src="/img/mani.jpeg" className="d-block w-100" alt="Maní sin sal" />
+              <img
+                src="/img/mani.jpeg"
+                className="d-block w-100"
+                alt="Maní sin sal"
+              />
             </div>
+          </div>
+
+          {/* FLECHA ANTERIOR */}
+
+          <button
+            className="carousel-control-prev"
+            type="button"
+            data-bs-target="#carruselInicio"
+            data-bs-slide="prev"
+          >
+            <span
+              className="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
+
+            <span className="visually-hidden">Anterior</span>
+          </button>
+
+          {/* FLECHA SIGUIENTE */}
+
+          <button
+            className="carousel-control-next"
+            type="button"
+            data-bs-target="#carruselInicio"
+            data-bs-slide="next"
+          >
+            <span
+              className="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
+
+            <span className="visually-hidden">Siguiente</span>
+          </button>
+        </div>
+      </section>
+
+      {/* ===================================== */}
+      {/* INFORMACIÓN DE LA TIENDA */}
+      {/* ===================================== */}
+
+      <section className="inicio-informacion">
+        <h1 id="infoLocal">BECS Frutos Secos</h1>
+
+        <p id="resumenTienda">
+          Somos una tienda familiar ubicada en Maipú dedicada a la venta de
+          frutos secos, productos deshidratados, condimentos, mieles y otros
+          productos a granel.
+        </p>
+      </section>
+
+      {/* ===================================== */}
+      {/* CATEGORÍAS */}
+      {/* ===================================== */}
+
+      <section className="categorias-inicio">
+        <div className="container">
+          <div className="text-center mb-4">
+            <h2 className="titulo-categorias">Explora nuestras categorías</h2>
+
+            <p className="subtitulo-categorias">
+              Encuentra rápidamente los productos que buscas
+            </p>
+          </div>
+
+          <div className="row g-4 justify-content-center">
+            {/* FRUTOS SECOS */}
+
+            <div className="col-6 col-md-3">
+              <Link
+                href="/productos?categoria=Frutos secos"
+                className="categoria-card"
+              >
+                <div className="categoria-icono">🥜</div>
+
+                <h5>Frutos secos</h5>
+              </Link>
+            </div>
+
+            {/* DESHIDRATADOS */}
+
+            <div className="col-6 col-md-3">
+              <Link
+                href="/productos?categoria=Deshidratados"
+                className="categoria-card"
+              >
+                <div className="categoria-icono">🍇</div>
+
+                <h5>Deshidratados</h5>
+              </Link>
+            </div>
+
+            {/* CONDIMENTOS */}
+
+            <div className="col-6 col-md-3">
+              <Link
+                href="/productos?categoria=Condimentos"
+                className="categoria-card"
+              >
+                <div className="categoria-icono">🌿</div>
+
+                <h5>Condimentos</h5>
+              </Link>
+            </div>
+
+            {/* MIELES */}
+
+            <div className="col-6 col-md-3">
+              <Link
+                href="/productos?categoria=Mieles"
+                className="categoria-card"
+              >
+                <div className="categoria-icono">🍯</div>
+
+                <h5>Mieles</h5>
+              </Link>
+            </div>
+          </div>
+
+          {/* BOTÓN PARA VER TODOS */}
+
+          <div className="text-center mt-4">
+            <Link href="/productos" className="btn btn-becs">
+              Ver todos los productos
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* INFO LOCAL */}
-      <section className="inicio-informacion">
-        <h2 id="infoLocal">INFORMACIÓN DEL LOCAL</h2>
-        <p id="resumenTienda">
-          BECS es una tienda familiar ubicada en Maipú, dedicada a la venta de frutos secos, productos a granel, deshidratados, harinas, aliños, mieles y otras variedades pensadas para el consumo diario.
-        </p>
-      </section>
-
+      {/* ===================================== */}
       {/* UBICACIÓN */}
-      <h1 id="tituloUbicacion">UBICACIÓN</h1>
-      <section className="ubicacion">
-        <div id="mapaBECS">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3328.0714809783494!2d-70.7484559!3d-33.4734897!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c311c135ca27%3A0x16e72997ca0d7ac3!2sBandurria%20Azul%20585%2C%209250000%20Maip%C3%BA%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1788999679895!5m2!1ses!2scl"
-            width="600"
-            height="450"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
+      {/* ===================================== */}
+
+      <section id="ubicacion">
+        <h2 id="tituloUbicacion">Nuestra ubicación</h2>
+
+        <div className="ubicacion">
+          <div id="mapaBECS">
+            <iframe
+              src="https://www.google.com/maps?q=Maipu,Santiago,Chile&output=embed"
+              width="700"
+              height="350"
+              style={{ border: 0 }}
+              loading="lazy"
+              title="Ubicación BECS"
+            ></iframe>
+          </div>
         </div>
       </section>
     </>
