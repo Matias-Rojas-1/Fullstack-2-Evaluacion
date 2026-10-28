@@ -45,8 +45,6 @@ export default function ProductosPage() {
     const categoriaUrl = parametros.get("categoria");
 
     if (categoriaUrl) {
-      // ESLint puede advertir por cambiar estado en useEffect.
-      // En este caso lo usamos para cargar el filtro de la URL.
 
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setCategoriaSeleccionada(categoriaUrl);

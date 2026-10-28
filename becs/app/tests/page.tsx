@@ -1,11 +1,33 @@
 "use client";
+
 import { useEffect } from "react";
-// @ts-ignore
-import { validarNombre, validarPass, validarConfirmacion, validarMail, calcularTotalCarrito } from "@/app/validadoresBecs.js";
+
+// @ts-expect-error
+import {
+  validarNombre,
+  validarPass,
+  validarConfirmacion,
+  validarMail,
+  calcularTotalCarrito,
+} from "@/app/validadoresBecs.js";
+
+interface QUnitAssert {
+  true(valor: boolean, mensaje?: string): void;
+  false(valor: boolean, mensaje?: string): void;
+  equal(valorActual: unknown, valorEsperado: unknown, mensaje?: string): void;
+}
+
+interface QUnitAPI {
+  module(nombre: string, callback: () => void): void;
+
+  test(nombre: string, callback: (assert: QUnitAssert) => void): void;
+
+  start(): void;
+}
 
 declare global {
   interface Window {
-    QUnit: any;
+    QUnit?: QUnitAPI;
   }
 }
 
@@ -24,40 +46,72 @@ export default function TestsPage() {
     script.async = true;
 
     script.onload = () => {
-      const Q = (window as any).QUnit;
+      const Q = window.QUnit;
+
+      if (!Q) return;
 
       Q.module("Pruebas Unitarias - Tienda BECS", () => {
-        
-        Q.test("1. Validar Nombre de Registro", (assert: any) => {
-          assert.true(validarNombre("Matias"), "Nombre válido de más de 3 letras");
+        Q.test("1. Validar Nombre de Registro", (assert) => {
+          assert.true(
+            validarNombre("Matias"),
+            "Nombre válido de más de 3 letras",
+          );
           assert.false(validarNombre("Jo"), "Nombre muy corto debe fallar");
-          assert.false(validarNombre("12345"), "Un nombre no puede ser numérico");
+          assert.false(
+            validarNombre("12345"),
+            "Un nombre no puede ser numérico",
+          );
         });
 
-        Q.test("2. Validar Contraseña", (assert: any) => {
-          assert.true(validarPass("admin123"), "Contraseña de más de 4 caracteres es válida");
-          assert.false(validarPass("123"), "Contraseña menor a 4 caracteres debe fallar");
+        Q.test("2. Validar Contraseña", (assert) => {
+          assert.true(
+            validarPass("admin123"),
+            "Contraseña de más de 4 caracteres es válida",
+          );
+          assert.false(
+            validarPass("123"),
+            "Contraseña menor a 4 caracteres debe fallar",
+          );
         });
 
-        Q.test("3. Validar Confirmación de Contraseña", (assert: any) => {
-          assert.true(validarConfirmacion("secreto", "secreto"), "Las contraseñas coinciden");
-          assert.false(validarConfirmacion("secreto", "otro"), "Las contraseñas no coinciden");
+        Q.test("3. Validar Confirmación de Contraseña", (assert) => {
+          assert.true(
+            validarConfirmacion("secreto", "secreto"),
+            "Las contraseñas coinciden",
+          );
+
+          assert.false(
+            validarConfirmacion("secreto", "otro"),
+            "Las contraseñas no coinciden",
+          );
         });
 
-        Q.test("4. Validar Formato de Correo Electrónico", (assert: any) => {
-          assert.true(validarMail("contacto@becs.cl"), "Correo con formato correcto");
-          assert.false(validarMail("correosinarroba.cl"), "Correo sin @ debe fallar");
+        Q.test("4. Validar Formato de Correo Electrónico", (assert) => {
+          assert.true(
+            validarMail("contacto@becs.cl"),
+            "Correo con formato correcto",
+          );
+
+          assert.false(
+            validarMail("correosinarroba.cl"),
+            "Correo sin @ debe fallar",
+          );
         });
 
-        Q.test("5. Calcular Total del Carrito en Tiempo Real", (assert: any) => {
+        Q.test("5. Calcular Total del Carrito en Tiempo Real", (assert) => {
           const itemsCarrito = [
-            { precio: 850, cantidad: 2 },  // Maní japonés merkén ($1700)
-            { precio: 2000, cantidad: 1 }   // Castañas de cajú ($2000)
+            { precio: 850, cantidad: 2 },
+            { precio: 2000, cantidad: 1 },
           ];
-          const totalEsperado = 3700;
-          assert.equal(calcularTotalCarrito(itemsCarrito), totalEsperado, "El cálculo total del carrito es exacto (3700)");
-        });
 
+          const totalEsperado = 3700;
+
+          assert.equal(
+            calcularTotalCarrito(itemsCarrito),
+            totalEsperado,
+            "El cálculo total del carrito es exacto (3700)",
+          );
+        });
       });
 
       Q.start();
