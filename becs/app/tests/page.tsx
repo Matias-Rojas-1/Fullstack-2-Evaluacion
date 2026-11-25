@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 
-// @ts-expect-error
 import {
   validarNombre,
   validarPass,
@@ -66,11 +65,11 @@ export default function TestsPage() {
         Q.test("2. Validar Contraseña", (assert) => {
           assert.true(
             validarPass("admin123"),
-            "Contraseña de más de 4 caracteres es válida",
+            "Contraseña de 6 o más caracteres es válida (mínimo del backend)",
           );
           assert.false(
             validarPass("123"),
-            "Contraseña menor a 4 caracteres debe fallar",
+            "Contraseña menor a 6 caracteres debe fallar",
           );
         });
 

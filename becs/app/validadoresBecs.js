@@ -4,8 +4,9 @@ export function validarNombre(nombre) {
   return limpio.length >= 3 && isNaN(Number(limpio));
 }
 
+// Mínimo 6 caracteres: es el mismo mínimo que exige el backend al registrar
 export function validarPass(contra) {
-  if (!contra || contra.length < 4) {
+  if (!contra || contra.length < 6) {
     return false;
   }
   return true;

@@ -898,3 +898,94 @@ footer {
   }
 
 }
+/* =========================================
+   INTEGRACIÓN CON EL BACKEND
+   (sesión, checkout y paneles por rol)
+========================================= */
+
+/* Bootstrap se carga DESPUÉS de este archivo, así que su regla .btn
+   pisaba el color de .btn-becs (los botones se veían transparentes).
+   Con .btn.btn-becs (más específico) y sus variables el color se respeta. */
+.btn.btn-becs {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--becs-cafe-medio);
+  --bs-btn-border-color: var(--becs-cafe-medio);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--becs-cafe-oscuro);
+  --bs-btn-hover-border-color: var(--becs-cafe-oscuro);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--becs-cafe-oscuro);
+  --bs-btn-active-border-color: var(--becs-cafe-oscuro);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: var(--becs-cafe-medio);
+  --bs-btn-disabled-border-color: var(--becs-cafe-medio);
+}
+
+.usuario-conectado {
+  white-space: nowrap;
+}
+
+.badge-rol {
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  background-color: var(--becs-beige);
+  color: var(--becs-cafe-oscuro);
+}
+
+.carrito-checkout {
+  margin-top: 24px;
+  padding: 24px;
+  background-color: white;
+  border: 1px solid #dfd1c0;
+  border-radius: 12px;
+}
+
+.panel-becs {
+  min-height: 60vh;
+}
+
+.panel-cabecera {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: var(--becs-cafe-oscuro);
+}
+
+.panel-cabecera h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.panel-usuario {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background-color: var(--becs-crema-claro);
+  border: 1px solid #dfd1c0;
+  color: var(--becs-cafe-medio);
+  font-weight: 600;
+}
+
+.panel-becs .nav-tabs .nav-link {
+  color: var(--becs-cafe-medio);
+}
+
+.panel-becs .nav-tabs .nav-link.active {
+  color: var(--becs-cafe-oscuro);
+  font-weight: 600;
+}
+
+.tabla-panel {
+  background-color: white;
+  border: 1px solid #dfd1c0;
+}
+
+.tabla-panel thead th {
+  background-color: var(--becs-cafe-oscuro);
+  color: var(--becs-crema);
+  font-weight: 600;
+}

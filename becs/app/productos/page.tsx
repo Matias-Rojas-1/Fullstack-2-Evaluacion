@@ -1,6 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import {
+  api,
+  Categoria,
+  imagenProducto,
+  ProductoApi,
+  unidadProducto,
+} from "@/lib/api";
 
 // Estructura de cada producto
 interface Producto {
@@ -24,9 +31,30 @@ interface ItemCarrito {
   cantidad: number;
 }
 
+// Convierte el producto del microservicio de catálogo al formato de la tienda
+function adaptarProducto(p: ProductoApi): Producto {
+  return {
+    id: p.id,
+    titulo: p.nombre,
+    precio: Number(p.precio) || 0,
+    unidad: unidadProducto(p),
+    imagen: imagenProducto(p.nombre),
+    categoria: p.categoria?.nombre ?? "Sin categoría",
+  };
+}
+
+const mismoTexto = (a: string, b: string) =>
+  a.localeCompare(b, "es", { sensitivity: "base" }) === 0;
+
 export default function ProductosPage() {
-  // Productos recibidos desde json-server
+  // Productos recibidos desde el backend (GET /api/v1/productos, público)
   const [productos, setProductos] = useState<Producto[]>([]);
+
+  // Categorías del backend (GET /api/v1/productos/categorias)
+  const [categorias, setCategorias] = useState<string[]>([]);
+
+  // Mensaje si el backend no responde
+  const [error, setError] = useState("");
 
   // Categoría seleccionada
 const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("Todos");
@@ -53,18 +81,26 @@ const [cargando, setCargando] = useState(true);
       setCategoriaSeleccionada(categoriaUrl);
     }
 
-    // Obtener productos desde json-server
-    fetch("http://localhost:4000/productos")
-      .then((respuesta) => respuesta.json())
+    // Obtener productos y categorías desde el API Gateway
+    Promise.all([
+      api<ProductoApi[]>("/productos", { autenticar: false }),
+      api<Categoria[]>("/productos/categorias", { autenticar: false }).catch(() => []),
+    ])
+      .then(([datos, cats]) => {
+        const lista = (datos ?? []).map(adaptarProducto);
+        setProductos(lista);
 
-      .then((datos) => {
-        setProductos(datos);
+        // Categorías del backend + las que aparezcan en los productos
+        const nombres = new Set<string>((cats ?? []).map((c) => c.nombre));
+        lista.forEach((p) => nombres.add(p.categoria));
+        setCategorias([...nombres]);
 
         setCargando(false);
       })
 
-      .catch((error) => {
-        console.log("Error al cargar productos:", error);
+      .catch((err) => {
+        console.log("Error al cargar productos:", err);
+        setError(err instanceof Error ? err.message : "No se pudieron cargar los productos.");
 
         setCargando(false);
       });
@@ -125,7 +161,7 @@ const [cargando, setCargando] = useState(true);
   const productosFiltrados = productos.filter((producto) => {
     const coincideCategoria =
       categoriaSeleccionada === "Todos" ||
-      producto.categoria === categoriaSeleccionada;
+      mismoTexto(producto.categoria, categoriaSeleccionada);
     // compara el nombre escrito del producto
     const coincideBusqueda = producto.titulo
       .toLowerCase()
@@ -171,13 +207,18 @@ const [cargando, setCargando] = useState(true);
             >
               <option value="Todos">Todos</option>
 
-              <option value="Frutos secos">Frutos secos</option>
+              {/* Categorías cargadas desde el backend */}
+              {categorias.map((nombre) => (
+                <option key={nombre} value={nombre}>
+                  {nombre}
+                </option>
+              ))}
 
-              <option value="Deshidratados">Deshidratados</option>
-
-              <option value="Condimentos">Condimentos</option>
-
-              <option value="Mieles">Mieles</option>
+              {/* Categoría que viene en la URL (desde el inicio) y aún no existe en el backend */}
+              {categoriaSeleccionada !== "Todos" &&
+                !categorias.some((c) => mismoTexto(c, categoriaSeleccionada)) && (
+                  <option value={categoriaSeleccionada}>{categoriaSeleccionada}</option>
+                )}
             </select>
           </div>
 
@@ -212,6 +253,12 @@ const [cargando, setCargando] = useState(true);
         {cargando ? (
           <div className="mensaje-productos">
             <p className="mb-0">Cargando productos...</p>
+          </div>
+        ) : error ? (
+          <div className="mensaje-productos">
+            <h5>No pudimos cargar los productos</h5>
+
+            <p className="text-danger mb-0">{error}</p>
           </div>
         ) : productosFiltrados.length === 0 ? (
         <div className="mensaje-productos">

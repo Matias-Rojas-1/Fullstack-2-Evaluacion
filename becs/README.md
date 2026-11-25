@@ -1,36 +1,66 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BECS Frutos Secos — Frontend (Next.js)
 
-## Getting Started
+Página web de la tienda BECS conectada a los microservicios del proyecto
+**FrutosSecosBECS** (Spring Boot) a través del **API Gateway**.
 
-First, run the development server:
+## Requisitos
+
+1. Backend levantado: MySQL (XAMPP), los microservicios y el API Gateway en `http://localhost:9090`.
+2. Node.js 20 o superior.
+
+## Cómo ejecutar
 
 ```bash
+cd becs
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+La dirección del backend se puede cambiar copiando `.env.example` como `.env.local`:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+NEXT_PUBLIC_API_URL=http://localhost:9090/api/v1
+```
 
-## Learn More
+## Conexión con el backend
 
-To learn more about Next.js, take a look at the following resources:
+Todas las peticiones se hacen con `fetch` desde `lib/api.ts`, que agrega el token
+JWT en el encabezado `Authorization: Bearer <token>`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Página | Endpoint(s) | Rol |
+|---|---|---|
+| `/login` | `POST /api/v1/auth/login` | Público |
+| `/registro` | `POST /api/v1/auth/registrar`, `POST /api/v1/clientes` | Público (crea un CLIENTE) |
+| `/productos` | `GET /api/v1/productos`, `GET /api/v1/productos/categorias` | Público |
+| `/carrito` | `GET /api/v1/clientes/buscar?mail=`, `POST /api/v1/clientes`, `POST /api/v1/pedidos` | Cliente |
+| `/vendedor` | `GET /api/v1/productos`, `GET /api/v1/pedidos` (solo lectura) | Vendedor (STAFF) |
+| `/admin` | CRUD `/api/v1/productos`, `GET/PUT/DELETE /api/v1/pedidos`, `GET /api/v1/clientes`, `GET /api/v1/admin/usuarios` | Administrador (ADMIN / OWNER) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Roles
 
-## Deploy on Vercel
+- **Administrador**: acceso completo desde su panel (productos, pedidos, clientes y usuarios).
+- **Vendedor**: solo ve el listado y detalle de productos y de pedidos. No ve ninguna otra opción.
+- **Cliente**: solo la tienda (productos, carrito y compra).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Después del login cada rol es enviado a su página (`/admin`, `/vendedor` o `/productos`)
+y el menú muestra solo las opciones que le corresponden. Si alguien entra a una ruta
+que no le corresponde es redirigido. La seguridad real la aplica el backend con el JWT
+(Spring Security), la web solo oculta lo que el rol no puede usar.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Estructura
+
+```
+becs/
+├── lib/api.ts                  # fetch al backend, sesión JWT y utilidades
+├── components/
+│   ├── Navegacion.tsx          # menú según el rol
+│   ├── RutaProtegida.tsx       # redirige si el rol no tiene acceso
+│   └── Panel.tsx               # tablas, detalle y modal de los paneles
+└── app/
+    ├── login/  registro/  productos/  carrito/
+    ├── admin/                  # panel del administrador
+    ├── vendedor/               # panel del vendedor
+    └── tests/                  # pruebas QUnit de los validadores
+```

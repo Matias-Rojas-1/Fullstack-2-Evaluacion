@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Link from "next/link";
 import Script from "next/script";
+import Navegacion from "@/components/Navegacion";
 
 export const metadata: Metadata = {
   title: "BECS - Frutos Secos",
@@ -73,54 +74,8 @@ export default function RootLayout({
             {/* OPCIONES DEL NAVBAR */}
 
             <div className="collapse navbar-collapse" id="navbarBECS">
-              <div className="navbar-nav ms-auto">
-                {/* INICIO */}
-
-                <Link className="nav-link" href="/">
-                  🏠 Inicio
-                </Link>
-
-                {/* PRODUCTOS */}
-
-                <a className="nav-link" href="/productos">
-                  🛍️ Productos
-                </a>
-
-                {/* CARRITO */}
-
-                <a className="nav-link" href="/carrito">
-                  🛒 Carrito
-                </a>
-
-                {/* REGISTRO */}
-
-                <a className="nav-link" href="/registro">
-                  👤 Registro
-                </a>
-
-                {/* LOGIN */}
-
-                <a className="nav-link" href="/login">
-                  🔑 Login
-                </a>
-
-                {/* PRUEBAS */}
-
-                <a className="nav-link" href="/tests">
-                  🧪 Pruebas QUnit
-                </a>
-
-                {/* UBICACIÓN */}
-
-                <a
-                  className="nav-link"
-                  href="https://maps.app.goo.gl/oVSXJAqgXjCdLjFg6"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  📍 Ubicación
-                </a>
-              </div>
+              {/* Opciones según el rol del usuario conectado */}
+              <Navegacion />
             </div>
           </div>
         </nav>
