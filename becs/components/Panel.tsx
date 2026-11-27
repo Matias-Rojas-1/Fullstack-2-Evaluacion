@@ -1,8 +1,6 @@
 "use client";
 
-/* Componentes comunes de los paneles de Administrador y Vendedor.
- *   GET /api/v1/productos → listado y detalle de productos
- *   GET /api/v1/pedidos   → listado y detalle de pedidos (STAFF, ADMIN, OWNER) */
+
 
 import { useCallback, useEffect, useState } from "react";
 import {

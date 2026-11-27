@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import CategoriasInicio from "@/components/CategoriasInicio";
 export default function InicioPage() {
   return (
     <>
@@ -102,59 +102,7 @@ export default function InicioPage() {
             </p>
           </div>
 
-          <div className="row g-4 justify-content-center">
-            {/* FRUTOS SECOS */}
-
-            <div className="col-6 col-md-3">
-              <Link
-                href="/productos?categoria=Frutos secos"
-                className="categoria-card"
-              >
-                <div className="categoria-icono">🥜</div>
-
-                <h5>Frutos secos</h5>
-              </Link>
-            </div>
-
-            {/* DESHIDRATADOS */}
-
-            <div className="col-6 col-md-3">
-              <Link
-                href="/productos?categoria=Deshidratados"
-                className="categoria-card"
-              >
-                <div className="categoria-icono">🍇</div>
-
-                <h5>Deshidratados</h5>
-              </Link>
-            </div>
-
-            {/* CONDIMENTOS */}
-
-            <div className="col-6 col-md-3">
-              <Link
-                href="/productos?categoria=Condimentos"
-                className="categoria-card"
-              >
-                <div className="categoria-icono">🌿</div>
-
-                <h5>Condimentos</h5>
-              </Link>
-            </div>
-
-            {/* MIELES */}
-
-            <div className="col-6 col-md-3">
-              <Link
-                href="/productos?categoria=Mieles"
-                className="categoria-card"
-              >
-                <div className="categoria-icono">🍯</div>
-
-                <h5>Mieles</h5>
-              </Link>
-            </div>
-          </div>
+          <CategoriasInicio />
 
           {/* BOTÓN PARA VER TODOS */}
 

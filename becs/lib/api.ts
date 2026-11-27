@@ -1,10 +1,3 @@
-/* ============================================================
- * lib/api.ts — Conexión con el backend BECS
- *
- * Todas las peticiones pasan por el API Gateway (puerto 9090), que
- * enruta a cada microservicio y valida el token JWT.
- * La dirección se puede cambiar con NEXT_PUBLIC_API_URL (.env.local).
- * ============================================================ */
 
 import { useSyncExternalStore } from "react";
 
